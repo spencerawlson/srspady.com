@@ -187,12 +187,12 @@ def ventures(request: Request):
 
 @app.get("/photography", response_class=HTMLResponse)
 def photography(request: Request):
-    return _section(request, "photography")
+    return _section(request, "photography", "photography.html")
 
 
 @app.get("/memories", response_class=HTMLResponse)
 def memories(request: Request):
-    return _section(request, "memories")
+    return _section(request, "memories", "memories.html")
 
 
 @app.get("/journal", response_class=HTMLResponse)

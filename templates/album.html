@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{# Album layout — Travels, Photography and Memories only.
+   Same header, footer, nav and Workshop tokens as the rest of the
+   site; only the content area becomes album pages: photo-led entries
+   in white mats, serif-italic captions, journal text on ruled lines,
+   and dark video slots. Published records from /admin render as album
+   entries; everything else is a clearly labelled placeholder or an
+   honest empty state — never a fabricated record. #}
+{% block title %}{{ title }} — S. R. Spady{% endblock %}
+{% block description %}{{ intro }}{% endblock %}
+{% block content %}
+{% if preview %}
+<div class="wrap"><p class="preview-banner">PREVIEW — draft only. This is how the record will look on the public site. It is not published yet. <a href="/admin/sections/{{ slug }}">← Back to editing</a></p></div>
+{% endif %}
+<section class="wrap page-head">
+  <p class="eyebrow">{{ kicker }} · S. R. Spady</p>
+  <h1>{{ title }}</h1>
+  <p class="lede">{{ intro }}</p>
+</section>
+{% if published_records %}
+<section class="wrap">
+  <div class="album">
+    <div class="album-grid">
+      {% for rec in published_records %}
+      {% if rec.image and rec.image.endswith(('.mp4', '.webm', '.mov')) %}
+      <figure class="album-video">
+        <video controls preload="metadata" src="/media/{{ rec.image }}"></video>
+        <figcaption>{{ rec.title }}</figcaption>
+        <p class="meta">Video</p>
+      </figure>
+      {% else %}
+      <figure class="album-photo">
+        {% if rec.image %}
+        <img src="/media/{{ rec.image }}" alt="">
+        {% else %}
+        <div class="photo-placeholder">Photograph to be added</div>
+        {% endif %}
+        <figcaption>{{ rec.title }}</figcaption>
+      </figure>
+      {% endif %}
+      {% endfor %}
+    </div>
+    {% for rec in published_records %}
+    {% if rec.body_html %}
+    <div class="album-journal rich-body">{{ rec.body_html | safe }}</div>
+    {% endif %}
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+<section class="wrap">
+  {% block album_body %}{% endblock %}
+</section>
+{% endblock %}

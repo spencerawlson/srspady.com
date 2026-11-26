@@ -1,0 +1,23 @@
+{% extends "album.html" %}
+{% block album_body %}
+<div class="album">
+  <p class="eyebrow">Album · Memories</p>
+  <h2>Moments worth keeping</h2>
+  <div class="album-grid">
+    <figure class="album-photo lead">
+      <div class="photo-placeholder">Photograph to be added</div>
+      <figcaption>A moment worth keeping — the first page of this album.</figcaption>
+    </figure>
+    {% for i in range(3) %}
+    <figure class="album-photo">
+      <div class="photo-placeholder">Photograph to be added</div>
+      <figcaption>Photograph to be added</figcaption>
+    </figure>
+    {% endfor %}
+  </div>
+  <div class="album-empty">
+    <p class="empty-mark">—</p>
+    <p>No memories published yet. {{ empty_state }}</p>
+  </div>
+</div>
+{% endblock %}

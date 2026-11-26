@@ -210,6 +210,87 @@ body.bg-dark-bench .empty-state { border-color: #3a3a42; }
 body.bg-gold-tint { background-image: none; background-color: #efe3c2; }
 html[data-theme="dark"] body.bg-gold-tint { background-color: #2a2517; }
 
+/* --- Photo album (Travels, Photography, Memories only) --- */
+/* The album lives inside the Workshop: same header, footer, nav and
+   tokens — only the content area becomes album pages: photo-led
+   entries in white mats with tape, serif-italic captions, journal
+   text on ruled lines, and dark video slots. */
+.album {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  margin: 1rem 0 2rem;
+  box-shadow: 0 2px 14px rgba(26, 26, 30, 0.08);
+}
+.album-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem 1.25rem; margin: 1.25rem 0; }
+.album-grid .lead { grid-column: 1 / -1; }
+.album-photo {
+  position: relative;
+  background: #fff;
+  color: #221f1a;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 0.6rem 0.6rem 0.5rem;
+  box-shadow: 0 3px 10px rgba(26, 26, 30, 0.14);
+}
+.album-photo:nth-child(odd) { transform: rotate(-0.6deg); }
+.album-photo:nth-child(even) { transform: rotate(0.5deg); }
+.album-photo::before {
+  content: "";
+  position: absolute; top: -0.6rem; left: 50%;
+  width: 5rem; height: 1.1rem; margin-left: -2.5rem;
+  background: rgba(232, 93, 4, 0.28);
+  border-left: 1px dashed rgba(232, 93, 4, 0.45);
+  border-right: 1px dashed rgba(232, 93, 4, 0.45);
+}
+.album-photo img, .album-photo video { display: block; width: 100%; height: auto; }
+.album-photo .photo-placeholder { margin: 0 0 0.5rem; }
+.album-photo figcaption {
+  font-family: var(--serif); font-style: italic; font-size: 1.05rem;
+  padding-top: 0.5rem;
+}
+.album-photo figcaption .meta, .album-photo p { margin-bottom: 0; }
+.album-photo p { padding-top: 0.4rem; }
+.album-photo .meta {
+  display: block; font-family: var(--mono); font-style: normal;
+  font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted); padding-top: 0.25rem;
+}
+.album-video {
+  position: relative;
+  background: #17171b; color: #f4efe6;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  box-shadow: 0 3px 10px rgba(26, 26, 30, 0.14);
+  min-height: 9rem;
+}
+.album-video video { display: block; width: 100%; height: auto; margin-bottom: 0.75rem; }
+.album-video figcaption { font-family: var(--serif); font-size: 1.2rem; }
+.album-video .meta {
+  font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.14em;
+  text-transform: uppercase; color: #f07b2a; margin: 0 0 0.5rem;
+}
+.album-journal {
+  font-family: var(--serif); font-size: 1.05rem; line-height: 2rem;
+  padding: 0.5rem 0.25rem;
+  background-image: repeating-linear-gradient(to bottom, transparent 0, transparent calc(2rem - 1px), var(--line) calc(2rem - 1px), var(--line) 2rem);
+}
+.album-journal p { margin-bottom: 0; }
+.album-empty {
+  text-align: center; padding: 2.5rem 1rem;
+  border: 1.5px dashed var(--line); border-radius: var(--radius);
+  color: var(--muted); margin: 1rem 0;
+}
+@media (min-width: 720px) {
+  .album { padding: 1.75rem; }
+  .album-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1024px) {
+  .album-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
 /* --- Published records + preview --- */
 .preview-banner {
   background: var(--accent); color: #fff; font-family: var(--mono);
