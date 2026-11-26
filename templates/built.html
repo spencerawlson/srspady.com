@@ -1,0 +1,26 @@
+{% extends "section.html" %}
+{% block section_body %}
+<p class="note">Each project below is told in the nine-step build format — why, what, design, materials, process, challenges, result, lessons, future. Steps whose details are not yet documented say so honestly; they are filled in as the records are written.</p>
+{% for p in projects %}
+<article class="build">
+  <p class="eyebrow">{{ p.category }} · {{ p.dates }} · {{ p.status }}</p>
+  <h2>{{ p.name }}</h2>
+  <p class="carried">Record carried over from the previous site.</p>
+  <ol class="steps">
+    {% for step in steps %}
+    <li><b>{{ step }}.</b> {{ p.steps[step] }}</li>
+    {% endfor %}
+  </ol>
+</article>
+{% endfor %}
+<h2>Technical reports</h2>
+<ol class="record-list">
+  {% for r in reports %}
+  <li class="record">
+    <p class="eyebrow">{{ r.date }}</p>
+    <h3>{{ r.title }}</h3>
+    <p>{{ r.detail }}{% if r.status %} — {{ r.status }}{% endif %}</p>
+  </li>
+  {% endfor %}
+</ol>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}{{ title }} — S. R. Spady{% endblock %}
+{% block description %}{{ intro }}{% endblock %}
+{% block content %}
+{% if preview %}
+<div class="wrap"><p class="preview-banner">PREVIEW — draft only. This is how the record will look on the public site. It is not published yet. <a href="/admin/sections/{{ slug }}">← Back to editing</a></p></div>
+{% endif %}
+<section class="wrap page-head">
+  <p class="eyebrow">{{ kicker }} · S. R. Spady</p>
+  <h1>{{ title }}</h1>
+  <p class="lede">{{ intro }}</p>
+</section>
+{% if published_records %}
+<section class="wrap">
+  {% for rec in published_records %}
+  <article class="record published-record">
+    <h2>{{ rec.title }}</h2>
+    {% if rec.image %}
+      {% if rec.image.endswith(('.mp4', '.webm', '.mov')) %}
+      <video controls preload="metadata" src="/media/{{ rec.image }}" style="max-width:100%"></video>
+      {% else %}
+      <img src="/media/{{ rec.image }}" alt="" style="max-width:100%;height:auto">
+      {% endif %}
+    {% endif %}
+    <div class="rich-body">{{ rec.body_html | safe }}</div>
+  </article>
+  {% endfor %}
+</section>
+{% endif %}
+<section class="wrap">
+  {% block section_body %}
+  <div class="empty-state">
+    <p class="empty-mark">—</p>
+    <p>{{ empty_state }}</p>
+  </div>
+  {% endblock %}
+</section>
+{% endblock %}

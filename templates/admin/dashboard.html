@@ -1,0 +1,26 @@
+{% extends "admin/base.html" %}
+{% block title %}Dashboard — Admin — S. R. Spady{% endblock %}
+{% block content %}
+<section class="page-head">
+  <p class="eyebrow">Admin · Dashboard</p>
+  <h1>All sections</h1>
+  <p class="lede">Every section, its drafts and its published records. Nothing here is public — publishing is a deliberate step per record.</p>
+  <p><a class="btn" href="/admin/media">Media library →</a></p>
+</section>
+<table class="admin-table">
+  <thead><tr><th>Section</th><th>Drafts</th><th>Published</th><th>Public</th><th></th></tr></thead>
+  <tbody>
+  {% for slug in all_sections %}
+  {% set c = counts[slug] %}
+  <tr>
+    <td><b>{{ sections[slug][0] }}</b><br><span class="mono dim">/{{ slug }}</span></td>
+    <td>{{ c.drafts }}</td>
+    <td>{{ c.published }}</td>
+    <td>{{ c.public }}</td>
+    <td><a href="/admin/sections/{{ slug }}">Edit →</a></td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+<p class="note">“Public” counts published records with visibility Public — the only ones the public site shows.</p>
+{% endblock %}

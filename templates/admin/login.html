@@ -1,0 +1,20 @@
+{% extends "admin/base.html" %}
+{% block title %}Admin login — S. R. Spady{% endblock %}
+{% block content %}
+<section class="page-head">
+  <p class="eyebrow">Owner only</p>
+  <h1>Admin login</h1>
+  {% if not configured %}
+  <p class="admin-warning">Admin login is not configured yet. Set <span class="mono">ADMIN_USERNAME</span>, <span class="mono">ADMIN_PASSWORD_HASH</span> and <span class="mono">ADMIN_SESSION_SECRET</span> in the environment — see the README. No login will succeed until they are set.</p>
+  {% else %}
+  <p class="lede">This area is for the site owner only.</p>
+  {% endif %}
+  {% if error %}<p class="admin-error">{{ error }}</p>{% endif %}
+  <form method="post" action="/admin/login" class="admin-form">
+    <label>Username<br><input type="text" name="username" autocomplete="username" required autofocus></label>
+    <label>Password<br><input type="password" name="password" autocomplete="current-password" required></label>
+    <button class="btn" type="submit">Log in</button>
+  </form>
+  <p class="note">Five failed attempts from one address lock that address out for 15 minutes.</p>
+</section>
+{% endblock %}

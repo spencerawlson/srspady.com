@@ -1,0 +1,50 @@
+{% extends "section.html" %}
+{% block section_body %}
+<div class="photo-placeholder">Photograph to be added</div>
+<p>This site is a living autobiography: the story is written as the life happens, chapter by chapter. Only what is verified is written down here — the rest waits for its record.</p>
+
+<h2>Chapters</h2>
+<div class="card-grid">
+  <article class="card">
+    <p class="eyebrow">Chapter 1 · Origins</p>
+    <h3>Where I come from</h3>
+    <div class="empty-state"><p>{{ empty_state }}</p></div>
+  </article>
+  <article class="card">
+    <p class="eyebrow">Chapter 2 · Education</p>
+    <h3>Learning</h3>
+    <ul class="tight">
+      {% for s in studies %}<li><b>{{ s.school }}</b> — {{ s.programme }}. {{ s.status }}. {{ s.expected }}.</li>{% endfor %}
+    </ul>
+    <p><a href="/studies">Studies →</a></p>
+  </article>
+  <article class="card">
+    <p class="eyebrow">Chapter 3 · Work</p>
+    <h3>Career</h3>
+    <ul class="tight">
+      {% for c in career %}<li><b>{{ c.role }}</b>, {{ c.org }} — {{ c.dates }}</li>{% endfor %}
+    </ul>
+    <p><a href="/career">Career →</a></p>
+  </article>
+  <article class="card">
+    <p class="eyebrow">Chapter 4 · Languages</p>
+    <h3>Tongues</h3>
+    <ul class="tight">
+      {% for name, level in languages %}<li><b>{{ name }}</b> — {{ level }}</li>{% endfor %}
+    </ul>
+  </article>
+  <article class="card">
+    <p class="eyebrow">Chapter 5 · Building</p>
+    <h3>What I've made</h3>
+    <p>Systems, platforms and infrastructure — from a homelab to production services.</p>
+    <p><a href="/built">Built →</a> · <a href="/ventures">Ventures →</a></p>
+  </article>
+  <article class="card">
+    <p class="eyebrow">Chapter 6 · Becoming</p>
+    <h3>Where I'm headed</h3>
+    <div class="empty-state"><p>{{ empty_state }}</p></div>
+    <p><a href="/ambitions">Ambitions →</a></p>
+  </article>
+</div>
+<p class="note">No childhood or family details are published here — nothing is invented about a life still being lived.</p>
+{% endblock %}

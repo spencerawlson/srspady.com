@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}Admin — S. R. Spady{% endblock %}</title>
+<link rel="stylesheet" href="/static/site.css?v=1">
+<link rel="stylesheet" href="/static/admin.css?v=1">
+</head>
+<body class="bg-graph-paper admin-body">
+<header class="site-head">
+  <div class="wrap bar">
+    <a class="brand" href="/admin" aria-label="Admin dashboard"><span class="mark">SR</span><span class="name"><b>S. R. SPADY · ADMIN</b><small>OWNER ONLY</small></span></a>
+    <nav class="mainnav" style="display:flex" aria-label="Admin">
+      <a href="/admin">Dashboard</a>
+      <a href="/admin/media">Media library</a>
+      <a href="/" target="_blank" rel="noopener">View public site ↗</a>
+      <a href="/admin/logout">Log out</a>
+    </nav>
+  </div>
+</header>
+<main id="main" class="wrap admin-main">
+{% block content %}{% endblock %}
+</main>
+<footer class="site-foot">
+  <div class="wrap"><div class="fine"><span>Admin — owner only. Drafts and private records never appear on the public site.</span><span><a href="/admin/logout">Log out</a></span></div></div>
+</footer>
+<script src="/static/admin.js?v=1" defer></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

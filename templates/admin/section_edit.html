@@ -1,0 +1,82 @@
+{% extends "admin/base.html" %}
+{% block title %}Edit {{ title }} — Admin — S. R. Spady{% endblock %}
+{% block content %}
+<section class="page-head">
+  <p class="eyebrow">Admin · {{ kicker }}</p>
+  <h1>{{ title }}</h1>
+  <p class="lede">{{ intro }}</p>
+  <p><a href="/{{ slug }}" target="_blank" rel="noopener">View public page ↗</a> · <a href="/admin">← Dashboard</a></p>
+</section>
+
+<h2>Background for this page</h2>
+<form method="post" action="/admin/sections/{{ slug }}/background" class="admin-form inline-form">
+  <label>Background
+    <select name="background">
+      {% for key, label in backgrounds.items() %}
+      <option value="{{ key }}" {% if key == background %}selected{% endif %}>{{ label }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  <button class="btn" type="submit">Save background</button>
+</form>
+<p class="note">Current: <b>{{ backgrounds[background] }}</b>. The public page re-reads this setting on every request.</p>
+
+<h2>New record</h2>
+<form method="post" action="/admin/sections/{{ slug }}/records" class="admin-form" id="record-form">
+  <label>Title<br><input type="text" name="title" required maxlength="200"></label>
+  <label>Image / video (from the media library — derived file name)<br>
+    <input type="text" name="image" placeholder="e.g. ab12cd34-photo-warm.jpg (leave blank for none)" list="media-names">
+    <datalist id="media-names">
+      {% for m in media %}{% if m.kind == 'derived' %}<option value="{{ m.name }}">{% endif %}{% endfor %}
+    </datalist>
+  </label>
+  <label>Visibility
+    <select name="visibility">
+      {% for v in visibilities %}<option value="{{ v }}" {% if v == 'Private' %}selected{% endif %}>{{ v }}</option>{% endfor %}
+    </select>
+  </label>
+  <p class="note">Default is Private. Only Public records appear on the public site after publishing. Family-only and Unlisted records are stored but not shown publicly.</p>
+  <label>Body</label>
+  <div class="rte-toolbar" role="toolbar" aria-label="Formatting">
+    <button type="button" data-cmd="bold"><b>B</b></button>
+    <button type="button" data-cmd="italic"><i>I</i></button>
+    <button type="button" data-cmd="formatBlock" data-value="h2">H2</button>
+    <button type="button" data-cmd="formatBlock" data-value="h3">H3</button>
+    <button type="button" data-cmd="insertUnorderedList">• List</button>
+    <button type="button" data-cmd="insertOrderedList">1. List</button>
+    <button type="button" data-cmd="formatBlock" data-value="blockquote">Quote</button>
+    <button type="button" id="rte-link">Link</button>
+  </div>
+  <div class="rte-editor" id="rte-editor" contenteditable="true" aria-label="Record body — rich text editor"><p>Write here…</p></div>
+  <input type="hidden" name="body" id="rte-body">
+  <button class="btn" type="submit">Save as draft</button>
+</form>
+
+<h2>Drafts ({{ drafts | length }})</h2>
+{% if drafts %}
+<ul class="admin-list">
+  {% for r in drafts %}
+  <li>
+    <b>{{ r.title }}</b> <span class="mono dim">{{ r.visibility }} · updated {{ r.updated }}</span><br>
+    <a href="/admin/sections/{{ slug }}/preview/{{ r.id }}">Preview →</a>
+    <form method="post" action="/admin/sections/{{ slug }}/records/{{ r.id }}/publish" style="display:inline"><button class="link-btn" type="submit">Publish</button></form>
+    <form method="post" action="/admin/sections/{{ slug }}/records/{{ r.id }}/delete" style="display:inline" onsubmit="return confirm('Delete this draft?')"><button class="link-btn danger" type="submit">Delete</button></form>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}<p class="note">No drafts.</p>{% endif %}
+
+<h2>Published ({{ published | length }})</h2>
+{% if published %}
+<ul class="admin-list">
+  {% for r in published %}
+  <li>
+    <b>{{ r.title }}</b> <span class="mono dim">{{ r.visibility }} · updated {{ r.updated }}</span><br>
+    <a href="/admin/sections/{{ slug }}/preview/{{ r.id }}">Preview →</a>
+    <form method="post" action="/admin/sections/{{ slug }}/records/{{ r.id }}/unpublish" style="display:inline"><button class="link-btn" type="submit">Unpublish to draft</button></form>
+    <form method="post" action="/admin/sections/{{ slug }}/records/{{ r.id }}/delete" style="display:inline" onsubmit="return confirm('Delete this published record?')"><button class="link-btn danger" type="submit">Delete</button></form>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}<p class="note">Nothing published for this section yet.</p>{% endif %}
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "section.html" %}
+{% block section_body %}
+<section class="farelune">
+  <p class="eyebrow">Travel · Farelune</p>
+  <h2>{{ farelune_heading }}</h2>
+  <p>{{ farelune_text }}</p>
+  <p><a class="btn" href="{{ farelune_url }}">Compare flights on Farelune →</a></p>
+  <p class="disclosure">{{ disclosure }}</p>
+</section>
+
+<h2>Destinations</h2>
+<div class="card-grid">
+  {% for d in destinations %}
+  <article class="card">
+    <p class="eyebrow">From Montréal (YUL) · {{ d.code }}</p>
+    <h3>{{ d.name }}</h3>
+    <div class="photo-placeholder small">Photograph to be added</div>
+    <p><a href="{{ d.url }}">Compare flights to {{ d.name }} on Farelune →</a></p>
+  </article>
+  {% endfor %}
+</div>
+
+<h2>Journeys completed</h2>
+<div class="empty-state">
+  <p class="empty-mark">—</p>
+  <p>No completed journey records exist yet. {{ empty_state }}</p>
+</div>
+
+<h2>Video series — in production</h2>
+<p class="note">Planned content, not completed trips.</p>
+<ul class="fact-list">
+  {% for v in video_series %}<li><b>{{ v.title }}</b> — {{ v.status }}</li>{% endfor %}
+</ul>
+
+<h2>Explore travels</h2>
+<ul class="fact-list">
+  <li><a href="/travels/map">Map</a></li>
+  <li><a href="/travels/destinations">Destinations</a></li>
+  <li><a href="/travels/journal">Travel journal</a></li>
+  <li><a href="/travels/gallery">Gallery</a></li>
+  <li><a href="/travels/guides">Guides</a></li>
+  <li><a href="/travels/bucket-list">Bucket list</a></li>
+  <li><a href="/travels/book">Book</a></li>
+</ul>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "section.html" %}
+{% block section_body %}
+<p>{{ lab_intro }}</p>
+<p><a class="btn" href="{{ lab_url }}">Visit spencerlab.tech →</a></p>
+
+<h2>Services from the lab</h2>
+<div class="card-grid">
+  {% for s in services %}
+  <article class="card">
+    <p class="eyebrow">{{ s.price }}</p>
+    <h3>{{ s.name }}</h3>
+    <p>{{ s.detail }}</p>
+  </article>
+  {% endfor %}
+</div>
+<p>Enquiries: <a href="mailto:{{ contact_email }}">{{ contact_email }}</a></p>
+
+<h2>Latest from SpencerLab</h2>
+<p class="note">The 15 latest posts, newest first. Full write-ups live on spencerlab.tech.</p>
+<ol class="record-list">
+  {% for p in posts %}
+  <li class="record">
+    <p class="eyebrow">{{ p.date | pretty_date }} · {{ p.category }}</p>
+    <h3><a href="{{ p.url }}">{{ p.title }}</a></h3>
+    <p>{{ p.summary }}</p>
+  </li>
+  {% endfor %}
+</ol>
+<p><a class="btn btn-ghost" href="{{ lab_url }}">All posts on spencerlab.tech →</a></p>
+{% endblock %}

@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}S. R. Spady — A Life in Progress{% endblock %}</title>
+<meta name="description" content="{% block description %}S. R. Spady — A Life in Progress. Everything I've learned. Everything I've built. Everywhere I've been. Everything I'm becoming.{% endblock %}">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#1a1a1e">
+<link rel="stylesheet" href="/static/site.css?v=1">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%231a1a1e'/><text x='16' y='22' font-family='monospace' font-weight='700' font-size='15' text-anchor='middle' fill='%23e85d04'>SR</text></svg>">
+<script>
+/* Theme before first paint: stored choice, else light (the Workshop default). */
+try { var t = localStorage.getItem("srspady-theme"); if (t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t); } catch (e) {}
+</script>
+</head>
+<body class="bg-{{ page_bg }}">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap bar">
+    <a class="brand" href="/" aria-label="S. R. Spady home">
+      <span class="mark">SR</span>
+      <span class="name"><b>S. R. SPADY</b><small>A LIFE IN PROGRESS</small></span>
+    </a>
+    <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="mainnav" aria-label="Open menu">Menu</button>
+    <nav class="mainnav" id="mainnav" aria-label="Main">
+      <a href="/about" {% if nav == 'about' %}aria-current="page"{% endif %}>About</a>
+      <a href="/travels" {% if nav == 'travels' %}aria-current="page"{% endif %}>Travels</a>
+      <a href="/studies" {% if nav == 'studies' %}aria-current="page"{% endif %}>Studies</a>
+      <a href="/built" {% if nav == 'built' %}aria-current="page"{% endif %}>Built</a>
+      <a href="/lab" {% if nav == 'lab' %}aria-current="page"{% endif %}>Lab</a>
+      <a href="/ventures" {% if nav == 'ventures' %}aria-current="page"{% endif %}>Ventures</a>
+      <a href="/journal" {% if nav == 'journal' %}aria-current="page"{% endif %}>Journal</a>
+      <a href="/contact" {% if nav == 'contact' %}aria-current="page"{% endif %}>Contact</a>
+    </nav>
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">Dark</button>
+  </div>
+  <nav class="groupnav wrap" aria-label="Sections by group">
+    {% for group, slugs in nav_groups %}
+    <span class="group"><span class="group-name">{{ group }}</span>
+      {% for s in slugs %}<a href="/{{ s }}">{{ sections[s][0] }}</a>{% if not loop.last %} · {% endif %}{% endfor %}
+    </span>
+    {% endfor %}
+  </nav>
+</header>
+
+<main id="main">
+{% block content %}{% endblock %}
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <a class="brand" href="/"><span class="mark">SR</span><span class="name"><b>S. R. SPADY</b><small>A LIFE IN PROGRESS</small></span></a>
+        <p>A living autobiography, digital museum and personal archive — built in the open, one record at a time.</p>
+        <p class="mono">SpencerLab · <a href="https://spencerlab.tech">spencerlab.tech</a><br>
+        Farelune · <a href="https://www.farelune.com">farelune.com</a></p>
+      </div>
+      <div>
+        <h4>All sections</h4>
+        <ul>
+          {% for s in all_sections %}<li><a href="/{{ s }}">{{ sections[s][0] }}</a></li>{% endfor %}
+        </ul>
+      </div>
+      <div>
+        <h4>Elsewhere</h4>
+        <ul>
+          <li><a href="https://spencerlab.tech">SpencerLab</a></li>
+          <li><a href="https://www.farelune.com">Farelune</a></li>
+          <li><a href="https://road2cissp.com">Road to CISSP</a></li>
+          <li><a href="https://shipitayiti.com">ShipItAyiti</a></li>
+          <li><a href="mailto:{{ contact_email }}">Email me</a></li>
+          <li><a href="/sitemap.xml">Sitemap</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="fine">
+      <span>© {{ year }} S. R. Spady. A life in progress.</span>
+      <span>Built with FastAPI · Self-hosted · Cloudflare Tunnel</span>
+    </div>
+  </div>
+</footer>
+<script src="/static/site.js?v=1" defer></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

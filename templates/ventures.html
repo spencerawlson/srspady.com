@@ -1,0 +1,13 @@
+{% extends "section.html" %}
+{% block section_body %}
+<div class="card-grid">
+  {% for v in ventures %}
+  <article class="card">
+    <p class="eyebrow">{{ v.status }}</p>
+    <h3>{% if v.url %}<a href="{{ v.url }}">{{ v.name }}</a>{% else %}{{ v.name }}{% endif %}</h3>
+    <p>{{ v.detail }}</p>
+  </article>
+  {% endfor %}
+</div>
+<p class="note">Ventures marked “status being verified” are on record but their operational status is not claimed until it is confirmed.</p>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "admin/base.html" %}
+{% block title %}Media library — Admin — S. R. Spady{% endblock %}
+{% block content %}
+<section class="page-head">
+  <p class="eyebrow">Admin · Media</p>
+  <h1>Media library</h1>
+  <p class="lede">Upload pictures and videos. Work on a copy with filters, crop and rotate — the original upload is never modified. Derivatives are saved with no EXIF data (GPS stripped).</p>
+  <p><a href="/admin">← Dashboard</a></p>
+</section>
+
+<h2>Upload</h2>
+<form method="post" action="/admin/media/upload" enctype="multipart/form-data" class="admin-form">
+  <label>File (image or video, max 50 MB)<br><input type="file" name="file" accept="image/*,video/*" required></label>
+  <label>Alt text (for images)<br><input type="text" name="alt" maxlength="200"></label>
+  <button class="btn" type="submit">Upload</button>
+</form>
+
+<h2>Work on a picture</h2>
+<p class="note">Pick an original, choose a mood, preview it live, then save a derived copy. The preview uses CSS filters; the saved copy is rendered server-side with Pillow.</p>
+<div class="filter-lab">
+  <label>Original
+    <select id="filter-source">
+      {% for m in media %}{% if m.kind == 'original' %}<option value="{{ m.name }}">{{ m.name }}</option>{% endif %}{% endfor %}
+    </select>
+  </label>
+  <div class="filter-buttons" role="group" aria-label="Filter presets">
+    {% for f in filters %}<button type="button" class="filter-btn" data-filter="{{ f }}">{{ f }}</button>{% endfor %}
+  </div>
+  <div class="filter-preview">
+    <img id="filter-preview-img" src="" alt="Filter preview" style="max-width:100%;display:none">
+    <p id="filter-preview-note" class="note">Select an original to preview it here.</p>
+  </div>
+  <form method="post" action="/admin/media/derive" class="admin-form" id="derive-form">
+    <input type="hidden" name="source" id="derive-source">
+    <input type="hidden" name="filter_name" id="derive-filter" value="none">
+    <label>Crop (fractions of width/height: x,y,w,h — e.g. 0.1,0.1,0.8,0.8; blank for none)<br><input type="text" name="crop" placeholder="0.1,0.1,0.8,0.8"></label>
+    <label>Rotate (degrees, blank for none)<br><input type="number" name="rotate" step="any" placeholder="90"></label>
+    <label>Alt text for the derived copy<br><input type="text" name="alt" maxlength="200"></label>
+    <button class="btn" type="submit">Save derived copy</button>
+  </form>
+</div>
+
+<h2>Files</h2>
+{% if media %}
+<table class="admin-table">
+  <thead><tr><th>File</th><th>Type</th><th>Size</th><th>Filter / source</th><th></th></tr></thead>
+  <tbody>
+  {% for m in media %}
+  <tr>
+    <td class="mono">{{ m.name }}{% if m.alt %}<br><span class="dim">alt: {{ m.alt }}</span>{% endif %}</td>
+    <td>{{ m.kind }}</td>
+    <td>{{ (m.size / 1024) | round(1) }} KB</td>
+    <td>{{ m.filter or '—' }}{% if m.source %}<br><span class="dim">from {{ m.source }}</span>{% endif %}</td>
+    <td>
+      {% if m.kind == 'original' %}<a href="/admin/media/originals/{{ m.name }}" target="_blank" rel="noopener">View</a>{% else %}<a href="/media/{{ m.name }}" target="_blank" rel="noopener">View</a>{% endif %}
+      <form method="post" action="/admin/media/delete" style="display:inline" onsubmit="return confirm('Delete {{ m.name }}?')"><input type="hidden" name="name" value="{{ m.name }}"><button class="link-btn danger" type="submit">Delete</button></form>
+    </td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% else %}<p class="note">No media yet.</p>{% endif %}
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "section.html" %}
+{% block section_body %}
+<p class="note">Generated from the real dated records on this site — studies, career, built projects, technical reports and SpencerLab posts. Nothing here is invented.</p>
+<ol class="timeline-list">
+  {% for item in items %}
+  <li class="timeline-item">
+    <p class="eyebrow">{{ item.date | pretty_date }} · {{ item.kind }}</p>
+    <h3>{{ item.title }}</h3>
+    {% if item.detail %}<p>{{ item.detail }}</p>{% endif %}
+  </li>
+  {% endfor %}
+</ol>
+{% endblock %}

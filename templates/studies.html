@@ -1,0 +1,26 @@
+{% extends "section.html" %}
+{% block section_body %}
+<h2>Programmes</h2>
+<div class="card-grid">
+  {% for s in studies %}
+  <article class="card">
+    <p class="eyebrow">{{ s.status }}</p>
+    <h3>{{ s.school }}</h3>
+    <p><b>{{ s.programme }}</b></p>
+    <p class="mono">{{ s.expected }}</p>
+  </article>
+  {% endfor %}
+</div>
+<h2>Current course</h2>
+<article class="card">
+  <p class="eyebrow">Now studying</p>
+  <h3>{{ course.title }}</h3>
+  <dl class="facts">
+    <div><dt>Course code</dt><dd class="mono">{{ course.code }}</dd></div>
+    <div><dt>Instructor</dt><dd>{{ course.instructor }}</dd></div>
+    <div><dt>Schedule</dt><dd>{{ course.schedule }}</dd></div>
+  </dl>
+</article>
+<h2>Completed courses</h2>
+<div class="empty-state"><p>{{ empty_state }}</p></div>
+{% endblock %}

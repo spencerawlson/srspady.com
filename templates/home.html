@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero wrap">
+  <p class="eyebrow">S. R. Spady · Est. a life in progress</p>
+  <h1>S. R. Spady<br><span class="accent">A Life in Progress.</span></h1>
+  <p class="lede">
+    {% for line in hero_lines %}{{ line }}<br>{% endfor %}
+  </p>
+  <p class="hero-links">
+    <a class="btn" href="/about">Read the story</a>
+    <a class="btn btn-ghost" href="/travels">See the travels</a>
+    <a class="btn btn-ghost" href="/lab">Visit the lab</a>
+  </p>
+  <div class="photo-placeholder" role="img" aria-label="Photograph to be added — portrait of S. R. Spady">Photograph to be added</div>
+</section>
+
+<section class="wrap">
+  <h2 class="section-title">My life in numbers</h2>
+  <p class="note">{{ life_numbers_note }}</p>
+  <ul class="stat-grid">
+    {% for label, _ in life_numbers %}
+    <li class="stat"><span class="stat-value">—</span><span class="stat-label">{{ label }}</span></li>
+    {% endfor %}
+  </ul>
+</section>
+
+<section class="wrap">
+  <h2 class="section-title">Featured</h2>
+  <div class="card-grid">
+    <article class="card">
+      <p class="eyebrow">Introduction</p>
+      <h3><a href="/about">The life so far</a></h3>
+      <p>A living autobiography — studies, career and the road that led here. Written as the life happens, not after the fact.</p>
+    </article>
+    <article class="card">
+      <p class="eyebrow">Travels</p>
+      <h3><a href="/travels">Everywhere I've been</a></h3>
+      <p>Journeys, destinations and the video series in production — Paris or Rome, Barcelona or Lisbon, Cancún or Punta Cana.</p>
+      <p><a href="/travels">Travels →</a></p>
+    </article>
+    <article class="card">
+      <p class="eyebrow">Creations</p>
+      <h3><a href="/built">Latest creations</a></h3>
+      <p>{% for p in built %}{{ p.name }}{% if not loop.last %}, {% endif %}{% endfor %} — each told as a build story, step by step.</p>
+      <p><a href="/built">Built →</a> · <a href="/repaired">Repaired →</a></p>
+    </article>
+    <article class="card">
+      <p class="eyebrow">Studies</p>
+      <h3><a href="/studies">Academic progress</a></h3>
+      <p>{% for s in studies %}{{ s.school }} — {{ s.programme }} ({{ s.status | lower }}, {{ s.expected }}).{% if not loop.last %}<br>{% endif %}{% endfor %}</p>
+    </article>
+    <article class="card">
+      <p class="eyebrow">Engineering</p>
+      <h3><a href="/lab">SpencerLab highlights</a></h3>
+      <ul class="tight">
+        {% for p in lab_posts %}<li><a href="{{ p.url }}">{{ p.title }}</a> <span class="mono dim">{{ p.date | pretty_date }}</span></li>{% endfor %}
+      </ul>
+      <p><a href="/lab">All 15 latest posts →</a></p>
+    </article>
+    <article class="card">
+      <p class="eyebrow">Ventures</p>
+      <h3><a href="/ventures">Featured businesses</a></h3>
+      <ul class="tight">
+        {% for v in ventures %}<li>{{ v.name }} — {{ v.status }}</li>{% endfor %}
+      </ul>
+      <p><a href="/ventures">All ventures →</a></p>
+    </article>
+    <article class="card">
+      <p class="eyebrow">Journal</p>
+      <h3><a href="/journal">Recent journal entries</a></h3>
+      <p>No entries published yet — records are added through the admin dashboard, coming in Phase 3.</p>
+    </article>
+    <article class="card">
+      <p class="eyebrow">Photography</p>
+      <h3><a href="/photography">Photography highlights</a></h3>
+      <div class="photo-placeholder small">Photograph to be added</div>
+      <p><a href="/photography">Photography →</a></p>
+    </article>
+    <article class="card">
+      <p class="eyebrow">Life</p>
+      <h3><a href="/timeline">Life timeline — preview</a></h3>
+      <ul class="tight">
+        {% for t in timeline %}<li><span class="mono dim">{{ t.date | pretty_date }}</span> — {{ t.title }}</li>{% endfor %}
+      </ul>
+      <p><a href="/timeline">Full timeline →</a></p>
+    </article>
+    <article class="card">
+      <p class="eyebrow">Life</p>
+      <h3><a href="/interests">Current interests</a></h3>
+      <p>No records published yet — records are added through the admin dashboard, coming in Phase 3.</p>
+    </article>
+    <article class="card">
+      <p class="eyebrow">Life</p>
+      <h3><a href="/ambitions">Long-term objectives</a></h3>
+      <p>No records published yet — records are added through the admin dashboard, coming in Phase 3.</p>
+    </article>
+    <article class="card">
+      <p class="eyebrow">Exploration</p>
+      <h3><a href="/travels/destinations">Featured travels</a></h3>
+      <ul class="tight">
+        {% for d in destinations %}<li><a href="{{ d.url }}">{{ d.name }}</a> <span class="mono dim">{{ d.code }}</span></li>{% endfor %}
+      </ul>
+    </article>
+  </div>
+</section>
+{% endblock %}

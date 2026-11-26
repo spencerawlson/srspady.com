@@ -1,0 +1,35 @@
+{% extends "section.html" %}
+{% block section_body %}
+<h2>{{ sub }}</h2>
+<p>{{ sub_intro }}</p>
+{% if show_destinations %}
+<div class="card-grid">
+  {% for d in destinations %}
+  <article class="card">
+    <p class="eyebrow">From Montréal (YUL) · {{ d.code }}</p>
+    <h3>{{ d.name }}</h3>
+    <p><a href="{{ d.url }}">Compare flights to {{ d.name }} on Farelune →</a></p>
+  </article>
+  {% endfor %}
+</div>
+{% endif %}
+{% if show_gallery %}
+<div class="photo-grid">
+  <div class="photo-placeholder">Photograph to be added</div>
+  <div class="photo-placeholder">Photograph to be added</div>
+  <div class="photo-placeholder">Photograph to be added</div>
+</div>
+{% endif %}
+<div class="empty-state">
+  <p class="empty-mark">—</p>
+  <p>{{ empty_state }}</p>
+</div>
+<section class="farelune">
+  <p class="eyebrow">Travel · Farelune</p>
+  <h3>{{ farelune_heading }}</h3>
+  <p>{{ farelune_text }}</p>
+  <p><a class="btn" href="{{ farelune_url }}">Compare flights on Farelune →</a></p>
+  <p class="disclosure">{{ disclosure }}</p>
+</section>
+<p><a href="/travels">← All travels</a></p>
+{% endblock %}

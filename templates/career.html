@@ -1,0 +1,17 @@
+{% extends "section.html" %}
+{% block section_body %}
+<h2>Work history</h2>
+<ol class="record-list">
+  {% for c in career %}
+  <li class="record">
+    <p class="eyebrow">{{ c.dates }}</p>
+    <h3>{{ c.role }}</h3>
+    <p><b>{{ c.org }}</b>{% if c.detail %} — {{ c.detail }}{% endif %}</p>
+  </li>
+  {% endfor %}
+</ol>
+<h2>Languages</h2>
+<ul class="fact-list">
+  {% for name, level in languages %}<li><b>{{ name }}</b> — {{ level }}</li>{% endfor %}
+</ul>
+{% endblock %}
